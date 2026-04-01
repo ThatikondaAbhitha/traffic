@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrafficGuard | Manage Vehicles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/citizendash.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="citizen-nav">
+       <div class="logo-section" onclick="window.location.href='citizen-dashboard.html';" title="Dashboard">
+    <div class="ios-pulse-icon">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="pulse-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:rgba(0,122,255,0.1)" />
+                    <stop offset="50%" style="stop-color:rgba(0,122,255,1)" />
+                    <stop offset="100%" style="stop-color:rgba(0,122,255,0.1)" />
+                </linearGradient>
+            </defs>
+            <rect x="15" y="32" width="70" height="6" rx="3" fill="#F2F2F7" />
+            <rect x="15" y="47" width="70" height="6" rx="3" fill="#F2F2F7" />
+            <rect x="15" y="62" width="70" height="6" rx="3" fill="#F2F2F7" />
+            <rect x="15" y="32" width="30" height="6" rx="3" fill="url(#pulse-grad)" class="p-line p1" />
+            <rect x="15" y="47" width="30" height="6" rx="3" fill="url(#pulse-grad)" class="p-line p2" />
+            <rect x="15" y="62" width="30" height="6" rx="3" fill="url(#pulse-grad)" class="p-line p3" />
+        </svg>
+    </div>
+    <div class="logo-text"><h1>TrafficGuard</h1></div>
+</div>
+        <div class="nav-links">
+            <a href="citizen-dashboard.html" class="nav-link">Overview</a>
+            <a href="citizen-violations.html" class="nav-link">My E-Challans</a>
+            <a href="citizen-profile.html" class="nav-link active">Manage Vehicles</a>
+        </div>
+        <div class="nav-profile">
+            <div style="display: flex; flex-direction: column; text-align: right;">
+                <span style="font-size: 13px; font-weight: 600;">Rahul Sharma</span>
+                <a href="#" onclick="logoutUser(event)" class="logout-text">Sign Out</a>
+            </div>
+            <div class="avatar">RS</div>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div class="page-title-group" style="margin-bottom: 25px;">
+            <h1>Account & Vehicles</h1>
+            <p>Manage your personal details, connected vehicles, and alerts.</p>
+        </div>
+
+        <div class="profile-grid">
+            
+            <div>
+                <div class="ft-card" style="margin-bottom: 25px;">
+                    <div class="user-header">
+                        <div class="avatar-large">RS</div>
+                        <div>
+                            <h2 style="font-size: 20px; font-weight: 700;">Rahul Sharma</h2>
+                            <p style="font-size: 13px; color: var(--success-emerald); font-weight: 600; margin-top: 3px;">✓ Verified Citizen ID</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-row">
+                        <span>Email Address</span>
+                        <strong>rahul.sharma@example.com</strong>
+                    </div>
+                    <div class="info-row">
+                        <span>Phone Number</span>
+                        <strong>+91 98765 43210</strong>
+                    </div>
+                    <div class="info-row">
+                        <span>Aadhaar Linked</span>
+                        <strong>XXXX-XXXX-4921</strong>
+                    </div>
+                    
+                    <button class="btn-outline" style="width: 100%; justify-content: center; margin-top: 20px;">Edit Profile</button>
+                </div>
+
+                <div class="ft-card">
+                    <h3 style="font-size: 16px; margin-bottom: 20px;">Alert Preferences</h3>
+                    
+                    <div class="toggle-row">
+                        <span class="toggle-label">SMS Alerts for E-Challans</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <span class="toggle-label">Email Receipts for Payments</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <span class="toggle-label">Traffic Advisory Warnings</span>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ft-card" style="height: fit-content;">
+                <div class="card-header">
+                    <span class="card-title">My Garage (Linked Vehicles)</span>
+                    <span style="font-size: 13px; color: var(--text-muted); font-weight: 600;">2 Registered</span>
+                </div>
+
+                <div class="vehicle-item">
+                    <div class="v-icon">🚗</div>
+                    <div class="v-details">
+                        <h4 style="font-size: 16px;">KA-01-AB-1234</h4>
+                        <p>Honda City • Registered: 2019</p>
+                    </div>
+                    <button class="btn-remove" style="margin-left: auto;" onclick="alert('Cannot remove vehicle with pending fines.')">Remove</button>
+                </div>
+
+                <div class="vehicle-item" style="border-bottom: none;">
+                    <div class="v-icon">🛵</div>
+                    <div class="v-details">
+                        <h4 style="font-size: 16px;">MH-02-CD-5678</h4>
+                        <p>Royal Enfield Classic 350 • Registered: 2021</p>
+                    </div>
+                    <button class="btn-remove" style="margin-left: auto;">Remove</button>
+                </div>
+
+                <div class="add-vehicle-form">
+                    <h4 style="font-size: 14px; margin-bottom: 15px;">Link a New Vehicle</h4>
+                    
+                    <div class="form-grid-2">
+                        <div class="input-box">
+                            <label>License Plate Number</label>
+                            <input type="text" placeholder="e.g. DL-04-XY-9999" style="text-transform: uppercase;">
+                        </div>
+                        <div class="input-box">
+                            <label>Last 4 Digits of Chassis / Engine</label>
+                            <input type="password" placeholder="••••" maxlength="4">
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">We use chassis verification to ensure you own the vehicle before linking it to your Citizen ID.</p>
+                    
+                    <button class="btn-link-vehicle" onclick="linkVehicle()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Verify & Link Vehicle
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function linkVehicle() {
+            const btn = document.querySelector('.btn-link-vehicle');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = "Verifying with RTO...";
+            btn.style.opacity = "0.7";
+            
+            setTimeout(() => {
+                alert("Vehicle Successfully Verified and Linked!");
+                btn.innerHTML = originalText;
+                btn.style.opacity = "1";
+            }, 1200);
+        }
+
+        // SECURE LOGOUT SCRIPT
+        function logoutUser(e) {
+            e.preventDefault();
+            window.location.replace("loginpage.html"); 
+        }
+    </script>
+</body>
+</html>

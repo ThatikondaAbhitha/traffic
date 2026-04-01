@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrafficGuard | Clean Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboardstyle.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo-section" onclick="window.location.reload();" style="cursor: pointer;" title="Refresh Page">
+            <div class="ios-pulse-icon">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="pulse-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:rgba(0,122,255,0.1)" />
+                            <stop offset="50%" style="stop-color:rgba(0,122,255,1)" />
+                            <stop offset="100%" style="stop-color:rgba(0,122,255,0.1)" />
+                        </linearGradient>
+                    </defs>
+                    <rect x="15" y="32" width="70" height="6" rx="3" fill="#F2F2F7" />
+                    <rect x="15" y="47" width="70" height="6" rx="3" fill="#F2F2F7" />
+                    <rect x="15" y="62" width="70" height="6" rx="3" fill="#F2F2F7" />
+                    
+                    <rect x="15" y="32" width="30" height="6" rx="3" fill="url(#pulse-grad)" class="p-line p1" />
+                    <rect x="15" y="47" width="30" height="6" rx="3" fill="url(#pulse-grad)" class="p-line p2" />
+                    <rect x="15" y="62" width="30" height="6" rx="3" fill="url(#pulse-grad)" class="p-line p3" />
+                </svg>
+            </div>
+            <div class="logo-text">
+                <h1>TrafficGuard</h1>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="dashboard.html" class="nav-item active">
+                <img src="dashboard.png" alt="Dashboard" class="sidebar-icon-img">
+                <span>Dashboard</span>
+            </a>
+            <a href="reportviolation.html" class="nav-item">
+                <img src="report violation.png" alt="Report" class="sidebar-icon-img">
+                <span>Report Violation</span>
+            </a>
+            <a href="emergency.html" class="nav-item">
+                <img src="emergency.png" alt="Emergency" class="sidebar-icon-img">
+                <span>Emergency</span>
+            </a>
+            <a href="analytics.html" class="nav-item">
+                <img src="analytics.png" alt="Analytics" class="sidebar-icon-img">
+                <span>Analytics</span>
+            </a>
+        </nav>
+        
+        <a href="#" onclick="window.location.replace('loginpage.html'); return false;" class="logout-btn" style="margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--bg-main); border-radius: 12px; text-decoration: none; border: 1px solid transparent; transition: all 0.2s ease;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="width: 32px; height: 32px; background: var(--text-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">S</div>
+                <div>
+                    <p style="font-size: 13px; font-weight: 600; color: var(--text-primary);">Const. Suresh</p>
+                    <p style="font-size: 11px; color: var(--text-secondary);">ID: OFF001</p>
+                </div>
+            </div>
+            <div style="color: var(--danger-red); display: flex; align-items: center;" title="Log Out">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+            </div>
+        </a>
+    </aside>
+
+    <main class="main-wrapper">
+        <header class="top-bar">
+            <div class="page-title">
+                <h2>Overview</h2>
+                <p>Tuesday, Oct 24 • Active Shift</p>
+            </div>
+            <input type="text" placeholder="Search license plate..." style="padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border-light); outline: none; background: var(--card-bg); width: 250px;">
+        </header>
+
+        <div class="main-grid">
+            <div class="left-col">
+                <div class="ios-card stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon i-blue">📋</div>
+                        <span class="stat-val">47</span>
+                        <span class="stat-label">Daily Citations</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon i-orange">⏳</div>
+                        <span class="stat-val">23</span>
+                        <span class="stat-label">Pending Review</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon i-green">₹</div>
+                        <span class="stat-val">14.5k</span>
+                        <span class="stat-label">Revenue Generated</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon i-red">⚠️</div>
+                        <span class="stat-val">02</span>
+                        <span class="stat-label">Active Incidents</span>
+                    </div>
+                </div>
+
+                <div class="ios-card map-box">
+                    <div class="map-pill" id="locBadge"><span style="color: var(--success-green);">●</span> Syncing GPS...</div>
+                    <div id="lightMap"></div>
+                </div>
+
+                <div class="visual-row">
+                    <div class="ios-card">
+                        <p class="card-title">Analytics</p>
+                        <div class="chart-bars">
+                            <div class="bar" style="height: 40%;"></div>
+                            <div class="bar" style="height: 70%;"></div>
+                            <div class="bar" style="height: 90%;"></div>
+                            <div class="bar" style="height: 50%;"></div>
+                            <div class="bar" style="height: 100%;"></div>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-secondary); font-weight: 500;">
+                            <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span>
+                        </div>
+                    </div>
+
+                    <div class="ios-card">
+                        <p class="card-title">Resolution</p>
+                        <div class="donut-center">
+                            <div class="donut">
+                                <span style="font-size: 20px; font-weight: 700; color: var(--text-primary);">82%</span>
+                                <span style="font-size: 10px; color: var(--text-secondary); font-weight: 500;">Solved</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ios-card" style="padding: 20px;">
+                        <p class="card-title">Live Stream</p>
+                        <div class="stream-list">
+                            <div class="stream-item">
+                                <div>
+                                    <p style="font-weight: 600; font-size: 13px;">KA01AB1234</p>
+                                    <p style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">Speeding • <span class="dyn-txt">MG Road</span></p>
+                                </div>
+                                <span style="font-weight: 600; font-size: 13px; color: var(--text-primary);">₹500</span>
+                            </div>
+                            <div class="stream-item">
+                                <div>
+                                    <p style="font-weight: 600; font-size: 13px;">MH02CD5678</p>
+                                    <p style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">No Helmet • <span class="dyn-txt">Indiranagar</span></p>
+                                </div>
+                                <span style="font-weight: 600; font-size: 13px; color: var(--text-primary);">₹1000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-col">
+                <div class="ios-card">
+                    <p class="card-title">Hotspot Radar</p>
+                    <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600;">
+                        <span class="dyn-txt">Zone Alpha</span>
+                        <span style="color: var(--danger-red);">85%</span>
+                    </div>
+                    <div class="radar-bg"><div class="radar-fill"></div></div>
+                </div>
+
+                <div style="margin-top: auto;">
+                    <button class="btn-emergency" onclick="location.href='emergency.html'">
+                        <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; opacity: 0.9;">Incident Reported</span>
+                        <span style="font-size: 18px; font-weight: 700;">Brigade Road</span>
+                        <span style="font-size: 12px; font-weight: 500; opacity: 0.8; margin-top: 4px;">Tap to respond immediately</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let map, marker;
+        function initCleanMap() {
+            map = L.map('lightMap', { zoomControl: false, attributionControl: false }).setView([20.5937, 78.9629], 4);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(map);
+            const badge = document.getElementById('locBadge');
+            const dynTexts = document.querySelectorAll('.dyn-txt');
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async (pos) => {
+                    const lat = pos.coords.latitude; const lng = pos.coords.longitude;
+                    map.flyTo([lat, lng], 16, { animate: true, duration: 1.5 });
+                    const blueDot = L.divIcon({
+                        className: 'ios-marker',
+                        html: `<div style="background:#007AFF; width:16px; height:16px; border-radius:50%; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);"></div>`,
+                        iconSize: [16, 16], iconAnchor: [8, 8]
+                    });
+                    if(marker) map.removeLayer(marker);
+                    marker = L.marker([lat, lng], {icon: blueDot}).addTo(map);
+                    try {
+                        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=16`);
+                        const data = await res.json();
+                        const street = data.address.road || data.address.suburb || "Active Sector";
+                        badge.innerHTML = `<span style="color: var(--success-green);">●</span> ${street}`;
+                        dynTexts.forEach(el => el.innerText = street);
+                    } catch (e) { badge.innerHTML = `<span style="color: var(--success-green);">●</span> GPS Active`; }
+                }, () => { badge.innerHTML = `<span style="color: var(--danger-red);">●</span> Location Disabled`; }, { enableHighAccuracy: true });
+            }
+        } 
+        window.onload = initCleanMap;
+    </script>
+</body>
+</html>

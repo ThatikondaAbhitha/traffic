@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Guard | Secure Portal</title>
+    <link rel="stylesheet" href="loginstyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body data-user="citizen">
+
+    <div class="background-overlay"></div>
+
+    <div class="login-container">
+        <div class="glass-panel" id="main-panel">
+            
+            <div class="badge-icon">
+                <div class="scanner-line"></div> 
+                <img id="role-icon" src="citizen.png" alt="Role Icon">
+            </div>
+
+            <div class="header">
+                <h1 id="main-title">TRAFFIC GUARD</h1>
+                <p id="sub-title">Public Violation Portal</p>
+            </div>
+
+            <div id="login-section">
+                <div class="role-tabs">
+                    <button type="button" class="tab-btn active" onclick="updateTheme('citizen', this)">CITIZEN</button>
+                    <button type="button" class="tab-btn" onclick="updateTheme('officer', this)">OFFICER</button>
+                    <button type="button" class="tab-btn" onclick="updateTheme('admin', this)">ADMIN</button>
+                </div>
+
+                <form class="auth-form" id="login-form">
+                    <div class="input-group">
+                        <input type="text" id="username" required placeholder=" ">
+                        <label id="user-label">License Plate or Email</label>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" id="password" required placeholder=" ">
+                        <label id="pass-label">Reference Number</label>
+                        <span class="toggle-password" onclick="togglePasswordVisibility()">
+                            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </span>
+                    </div>
+
+                    <div class="session-info">
+                        <label class="remember-me">
+                            <input type="checkbox" checked> <span>Encrypted Session</span>
+                        </label>
+                        <span class="divider" id="create-divider">|</span>
+                        <span class="create-link" id="toggle-link" onclick="toggleForm('reg')">Create Account</span>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">CHECK VIOLATIONS</span>
+                    </button>
+                </form>
+            </div>
+
+            <div id="register-section" style="display: none;">
+                <form class="auth-form">
+                    <div class="grid-2">
+                        <div class="input-group"><input type="text" required placeholder=" "><label>Full Name</label></div>
+                        <div class="input-group"><input type="tel" required placeholder=" "><label>Phone</label></div>
+                    </div>
+                    <div class="input-group"><input type="email" required placeholder=" "><label>Email Address</label></div>
+                    <div class="grid-2">
+                        <div class="input-group"><input type="text" required placeholder=" "><label>Plate #</label></div>
+                        <div class="input-group"><input type="text" required placeholder=" "><label>License #</label></div>
+                    </div>
+                    <button type="submit" class="submit-btn"><span>REGISTER CITIZEN ID</span></button>
+                    <p class="create-link" style="margin-top:15px;" onclick="toggleForm('login')">Back to Login</p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // TOGGLE PASSWORD VISIBILITY FUNCTION
+        function togglePasswordVisibility() {
+            const passInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                // Change to eye-slash icon
+                eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+            } else {
+                passInput.type = 'password';
+                // Change back to normal eye icon
+                eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+            }
+        }
+
+        // YOUR EXACT THEME & BG UPDATER 
+        function updateTheme(role, element) {
+            document.body.setAttribute('data-user', role);
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+
+            const subTitle = document.getElementById('sub-title');
+            const roleIcon = document.getElementById('role-icon'); 
+            const btnText = document.querySelector('.btn-text');
+            const userLabel = document.getElementById('user-label');
+            const passLabel = document.getElementById('pass-label');
+            const createDivider = document.getElementById('create-divider');
+            const createLink = document.getElementById('toggle-link');
+
+            // Force back to login view if they switch tabs while on the registration screen
+            if(role !== 'citizen') {
+                toggleForm('login');
+            }
+
+            if(role === 'citizen') {
+                subTitle.innerText = "Public Violation Portal";
+                roleIcon.src = "citizen.png"; 
+                btnText.innerText = "CHECK VIOLATIONS";
+                userLabel.innerText = "License Plate or Email";
+                passLabel.innerText = "Reference Number";
+                
+                createDivider.style.display = "inline";
+                createLink.style.display = "inline";
+
+            } else if(role === 'officer') {
+                subTitle.innerText = "Enforcement Dashboard";
+                roleIcon.src = "officer.png"; 
+                btnText.innerText = "OFFICER LOGIN";
+                userLabel.innerText = "Badge ID / Number";
+                passLabel.innerText = "Department Password";
+                
+                createDivider.style.display = "none";
+                createLink.style.display = "none";
+
+            } else if(role === 'admin') {
+                subTitle.innerText = "Central Command Center";
+                roleIcon.src = "admin.png"; 
+                btnText.innerText = "AUTHENTICATE COMMAND";
+                userLabel.innerText = "Admin Username";
+                passLabel.innerText = "Root Security Key";
+                
+                createDivider.style.display = "none";
+                createLink.style.display = "none";
+            }
+        }
+
+        function toggleForm(target) {
+            const loginSec = document.getElementById('login-section');
+            const regSec = document.getElementById('register-section');
+            const panel = document.getElementById('main-panel');
+            loginSec.style.display = target === 'reg' ? 'none' : 'block';
+            regSec.style.display = target === 'reg' ? 'block' : 'none';
+            panel.style.maxWidth = target === 'reg' ? '550px' : '420px';
+        }
+
+        // --- SESSION & BACK BUTTON LOCK ---
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            window.location.replace("dashboard.html"); 
+        });
+
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () { history.go(1); };
+        // --- SMART SESSION & BACK BUTTON LOCK ---
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check which tab is currently active
+            const currentRole = document.body.getAttribute('data-user');
+            
+            if (currentRole === 'citizen') {
+                // Send to Citizen Portal
+                window.location.replace("citizen-dashboard.html"); 
+            } else if (currentRole === 'officer') {
+                // Send to Officer Portal
+                window.location.replace("dashboard.html"); 
+            } else if (currentRole === 'admin') {
+                // Admin portal (Placeholder)
+                alert("Admin Portal is under construction!");
+            }
+        });
+    </script>
+</body>
+</html>

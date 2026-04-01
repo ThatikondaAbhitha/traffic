@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrafficGuard | Citizen Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/citizendash.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="citizen-nav">
+        <div class="logo-section" onclick="window.location.href='citizen-dashboard.html';" title="Dashboard">
+    <div class="ios-pulse-icon">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="pulse-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:rgba(0,122,255,0.1)" />
+                    <stop offset="50%" style="stop-color:rgba(0,122,255,1)" />
+                    <stop offset="100%" style="stop-color:rgba(0,122,255,0.1)" />
+                </linearGradient>
+            </defs>
+            <rect x="15" y="32" width="70" height="6" rx="3" fill="#F2F2F7" />
+            <rect x="15" y="47" width="70" height="6" rx="3" fill="#F2F2F7" />
+            <rect x="15" y="62" width="70" height="6" rx="3" fill="#F2F2F7" />
+            <rect x="15" y="32" width="30" height="6" rx="3" fill="url(#pulse-grad)" class="p-line p1" />
+            <rect x="15" y="47" width="30" height="6" rx="3" fill="url(#pulse-grad)" class="p-line p2" />
+            <rect x="15" y="62" width="30" height="6" rx="3" fill="url(#pulse-grad)" class="p-line p3" />
+        </svg>
+    </div>
+    <div class="logo-text"><h1>TrafficGuard</h1></div>
+</div>
+        <div class="nav-links">
+            <a href="citizen-dashboard.html" class="nav-link active">Overview</a>
+            <a href="citizen-violations.html" class="nav-link">My E-Challans</a>
+            <a href="citizen-profile.html" class="nav-link">Manage Vehicles</a>
+        </div>
+        <div class="nav-profile">
+            <div style="display: flex; flex-direction: column; text-align: right;">
+                <span style="font-size: 13px; font-weight: 600;">Rahul Sharma</span>
+                <a href="#" onclick="logoutUser(event)" class="logout-text">Sign Out</a>
+            </div>
+            <div class="avatar">RS</div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="welcome-section">
+            <div>
+                <h1>Welcome back, Rahul</h1>
+                <p>Manage your registered vehicles and settle pending citations securely.</p>
+            </div>
+            <div class="total-due-badge">
+                <p style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin:0;">Total Amount Due</p>
+                <h2 style="font-size: 24px; font-weight: 800; margin-top: 2px;">₹1,500</h2>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="ft-card">
+                <div class="card-header">
+                    <span class="card-title">My Garage</span>
+                    <button class="add-btn">+ Link Vehicle</button>
+                </div>
+                
+                <div class="vehicle-item">
+                    <div class="v-icon">🚗</div>
+                    <div class="v-details">
+                        <h4>KA-01-AB-1234</h4>
+                        <p>Honda City • 2019</p>
+                    </div>
+                    <span class="status-pill pill-flagged">1 Pending</span>
+                </div>
+
+                <div class="vehicle-item">
+                    <div class="v-icon">🛵</div>
+                    <div class="v-details">
+                        <h4>MH-02-CD-5678</h4>
+                        <p>Royal Enfield • 2021</p>
+                    </div>
+                    <span class="status-pill pill-clean">Clear</span>
+                </div>
+            </div>
+
+            <div class="ft-card">
+                <div class="card-header">
+                    <span class="card-title">Action Required</span>
+                    <a href="citizen-violations.html" class="add-btn" style="text-decoration: none;">View History ➔</a>
+                </div>
+
+                <div class="challan-item">
+                    <div class="c-left">
+                        <div class="c-title">Signal Jumping</div>
+                        <div class="c-meta">
+                            <span>📅 Oct 24, 2023</span>
+                            <span>📍 MG Road Junction</span>
+                            <span style="color: var(--text-dark); font-weight: 600;">KA-01-AB-1234</span>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="c-amount">₹500</div>
+                        <button class="btn-pay">Pay Now</button>
+                    </div>
+                </div>
+
+                <div class="challan-item">
+                    <div class="c-left">
+                        <div class="c-title">Speeding Limit Exceeded</div>
+                        <div class="c-meta">
+                            <span>📅 Oct 18, 2023</span>
+                            <span>📍 Airport Road (Zone Alpha)</span>
+                            <span style="color: var(--text-dark); font-weight: 600;">KA-01-AB-1234</span>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="c-amount">₹1000</div>
+                        <button class="btn-pay">Pay Now</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // SECURE LOGOUT SCRIPT
+        function logoutUser(e) {
+            e.preventDefault();
+            window.location.replace("loginpage.html"); 
+        }
+    </script>
+</body>
+</html>

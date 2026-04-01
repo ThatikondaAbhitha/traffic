@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report Violation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboardstyle.css') }}">
+</head>
+<body>
+
+<h2>New Citation</h2>
+
+<!-- ✅ FORM START -->
+<form action="/report" method="POST">
+
+    <!-- Plate Input -->
+    <label>License Plate</label><br>
+    <input type="text" name="plate" placeholder="Enter Plate Number" required><br><br>
+
+    <!-- Violation -->
+    <label>Violation Type</label><br>
+    <select name="violation">
+        <option>No Helmet</option>
+        <option>Signal Jump</option>
+        <option>Over Speed</option>
+    </select><br><br>
+
+    <!-- Location -->
+    <label>Location</label><br>
+    <input type="text" name="location" placeholder="Enter Location"><br><br>
+
+    <!-- Remarks -->
+    <label>Remarks</label><br>
+    <textarea name="remarks" placeholder="Enter remarks"></textarea><br><br>
+
+    <!-- Submit -->
+    <button type="submit">Issue Citation</button>
+
+</form>
+<!-- ✅ FORM END -->
+
+</body>
+</html>

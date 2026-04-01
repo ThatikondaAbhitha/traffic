@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrafficGuard | My E-Challans</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/citizendash.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="citizen-nav">
+       <div class="logo-section" onclick="window.location.href='citizen-dashboard.html';" title="Dashboard">
+    <div class="ios-pulse-icon">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="pulse-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:rgba(0,122,255,0.1)" />
+                    <stop offset="50%" style="stop-color:rgba(0,122,255,1)" />
+                    <stop offset="100%" style="stop-color:rgba(0,122,255,0.1)" />
+                </linearGradient>
+            </defs>
+            <rect x="15" y="32" width="70" height="6" rx="3" fill="#F2F2F7" />
+            <rect x="15" y="47" width="70" height="6" rx="3" fill="#F2F2F7" />
+            <rect x="15" y="62" width="70" height="6" rx="3" fill="#F2F2F7" />
+            <rect x="15" y="32" width="30" height="6" rx="3" fill="url(#pulse-grad)" class="p-line p1" />
+            <rect x="15" y="47" width="30" height="6" rx="3" fill="url(#pulse-grad)" class="p-line p2" />
+            <rect x="15" y="62" width="30" height="6" rx="3" fill="url(#pulse-grad)" class="p-line p3" />
+        </svg>
+    </div>
+    <div class="logo-text"><h1>TrafficGuard</h1></div>
+</div>
+        <div class="nav-links">
+            <a href="citizen-dashboard.html" class="nav-link">Overview</a>
+            <a href="citizen-violations.html" class="nav-link active">My E-Challans</a>
+            <a href="citizen-profile.html" class="nav-link">Manage Vehicles</a>
+        </div>
+        <div class="nav-profile">
+            <div style="display: flex; flex-direction: column; text-align: right;">
+                <span style="font-size: 13px; font-weight: 600;">Rahul Sharma</span>
+                <a href="#" onclick="logoutUser(event)" class="logout-text">Sign Out</a>
+            </div>
+            <div class="avatar">RS</div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="page-title-group">
+                <h1>Citation History</h1>
+                <p>Review your past and pending traffic violations.</p>
+            </div>
+            
+            <div class="controls-group">
+                <div class="search-box">
+                    <span>🔍</span>
+                    <input type="text" placeholder="Search Challan ID or Plate #">
+                </div>
+                <div class="filter-tabs">
+                    <button class="f-tab active">All</button>
+                    <button class="f-tab">Pending</button>
+                    <button class="f-tab">Paid</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="challans-list">
+            
+            <div class="detailed-challan">
+                <div class="dc-info">
+                    <div class="dc-icon icon-red">📸</div>
+                    <div class="dc-details">
+                        <h3>Signal Jumping <span class="badge badge-unpaid">Unpaid</span></h3>
+                        <div class="dc-meta-row">
+                            <span>Challan ID: <strong>TG-2023-89412</strong></span>
+                            <span>Vehicle: <strong>KA-01-AB-1234</strong></span>
+                        </div>
+                        <div class="dc-meta-row">
+                            <span>Date: <strong>Oct 24, 2023 • 08:15 AM</strong></span>
+                            <span>Location: <strong>MG Road Junction, Bangalore</strong></span>
+                        </div>
+                        <div class="dc-meta-row" style="margin-top: 10px;">
+                            <span>Issued By: <strong>Const. Suresh (OFF001)</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dc-actions">
+                    <div style="text-align: right;">
+                        <p style="font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Amount Due</p>
+                        <div class="dc-amount">₹500</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn-outline" onclick="alert('Viewing Traffic Camera Evidence...')">👁️ View Evidence</button>
+                        <button class="btn-pay" style="margin-top: 0;">Pay Fine Securely</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detailed-challan">
+                <div class="dc-info">
+                    <div class="dc-icon icon-red">⚠️</div>
+                    <div class="dc-details">
+                        <h3>Speeding Limit Exceeded <span class="badge badge-unpaid">Unpaid</span></h3>
+                        <div class="dc-meta-row">
+                            <span>Challan ID: <strong>TG-2023-88204</strong></span>
+                            <span>Vehicle: <strong>KA-01-AB-1234</strong></span>
+                        </div>
+                        <div class="dc-meta-row">
+                            <span>Date: <strong>Oct 18, 2023 • 11:45 PM</strong></span>
+                            <span>Location: <strong>Airport Road (Zone Alpha)</strong></span>
+                        </div>
+                        <div class="dc-meta-row" style="margin-top: 10px;">
+                            <span>Recorded Speed: <strong style="color: var(--danger-red);">85 km/h (Limit: 60)</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dc-actions">
+                    <div style="text-align: right;">
+                        <p style="font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Amount Due</p>
+                        <div class="dc-amount">₹1000</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn-outline">🛡️ Dispute</button>
+                        <button class="btn-outline" onclick="alert('Viewing Radar Evidence...')">👁️ View Evidence</button>
+                        <button class="btn-pay" style="margin-top: 0;">Pay Fine Securely</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detailed-challan" style="opacity: 0.85;">
+                <div class="dc-info">
+                    <div class="dc-icon icon-green">✅</div>
+                    <div class="dc-details">
+                        <h3>Riding Without Helmet <span class="badge badge-paid">Settled</span></h3>
+                        <div class="dc-meta-row">
+                            <span>Challan ID: <strong>TG-2022-41109</strong></span>
+                            <span>Vehicle: <strong>MH-02-CD-5678</strong></span>
+                        </div>
+                        <div class="dc-meta-row">
+                            <span>Date: <strong>Mar 12, 2022 • 04:20 PM</strong></span>
+                            <span>Location: <strong>Indiranagar 100ft Road</strong></span>
+                        </div>
+                        <div class="dc-meta-row" style="margin-top: 10px; color: var(--success-emerald);">
+                            <span>Paid On: <strong>Mar 14, 2022 via UPI</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dc-actions">
+                    <div style="text-align: right;">
+                        <p style="font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Amount Paid</p>
+                        <div class="dc-amount" style="text-decoration: line-through; color: var(--text-muted);">₹500</div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn-outline">📥 Download Receipt</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Tab switching logic for UI feel
+        const tabs = document.querySelectorAll('.f-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // SECURE LOGOUT SCRIPT
+        function logoutUser(e) {
+            e.preventDefault();
+            window.location.replace("loginpage.html"); 
+        }
+    </script>
+</body>
+</html>
